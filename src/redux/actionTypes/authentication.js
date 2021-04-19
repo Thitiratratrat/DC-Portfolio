@@ -1,0 +1,4 @@
+export const START_REGISTERING = 'START_REGISTERING';
+export const FINISH_REGISTERING = 'FINISH_REGISTERING';
+export const LOGIN = 'LOGIN';
+export const LOGOUT = 'LOGOUT';
