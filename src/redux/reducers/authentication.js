@@ -8,6 +8,7 @@ import {
 const initialState = {
   registerInProcess: false,
   isAuthenticated: false,
+  mode: 'student',
 };
 
 export default function (state = initialState, action) {

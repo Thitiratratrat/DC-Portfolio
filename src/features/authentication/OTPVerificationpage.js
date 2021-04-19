@@ -2,8 +2,12 @@ import React, {useState} from 'react';
 import Container from '../../components/Container';
 import {Button, TextInput} from 'react-native-paper';
 
-export default function OTPVerificationPage() {
+export default function OTPVerificationPage({navigation}) {
   const [code, setCode] = useState('');
+
+  function verifyOTP() {
+    navigation.navigate('Home');
+  }
 
   return (
     <Container>
@@ -13,7 +17,9 @@ export default function OTPVerificationPage() {
         value={code}
         onChangeText={text => setCode(text)}
       />
-      <Button mode="contained">Verify</Button>
+      <Button mode="contained" onPress={verifyOTP}>
+        Verify
+      </Button>
     </Container>
   );
 }

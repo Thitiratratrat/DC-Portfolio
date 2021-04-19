@@ -2,13 +2,15 @@ import React, {useEffect} from 'react';
 import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import AuthNavigationStack from './src/features/authentication/NavigationStack';
+import StudentNavigationStack from './src/features/student/NavigationStack';
 import {useDispatch, useSelector} from 'react-redux';
 import {authenticationService} from './src/lib/dependencies.js';
 import actions from './src/redux/actions';
 
 export default function AppNavigation() {
   const dispatch = useDispatch();
-  const {isAuthenticated} = useSelector(state => state.authentication);
+  const {isAuthenticated, mode} = useSelector(state => state.authentication);
+  const STUDENT_MODE = 'student';
 
   useEffect(() => {
     // async function init() {
@@ -23,9 +25,14 @@ export default function AppNavigation() {
     // init();
   }, [isAuthenticated]);
 
+  function isStudentMode() {
+    return mode === STUDENT_MODE;
+  }
+
   return (
     <NavigationContainer>
       {!isAuthenticated && <AuthNavigationStack />}
+      {isAuthenticated && isStudentMode() && <StudentNavigationStack />}
     </NavigationContainer>
   );
 }
