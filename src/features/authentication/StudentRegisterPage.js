@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import Container from '../../components/Container';
+import {useDispatch} from 'react-redux';
+import actions from '../../redux/actions';
 import {Button, TextInput, RadioButton, Text} from 'react-native-paper';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import {authenticationService} from '../../lib/dependencies';
 import styled from '@emotion/native';
 
 const HorizontalContainer = styled.View`
@@ -14,6 +17,7 @@ const StyledTextInput = styled(TextInput)`
 `;
 
 export default function StudentRegisterPage({navigation}) {
+  const dispatch = useDispatch();
   const MARGIN_BETWEEN_INPUT = 20;
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -22,11 +26,34 @@ export default function StudentRegisterPage({navigation}) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [showDatePicker, setShowDatePicker] = useState(false);
 
-  function register() {
+  async function register() {
+    dispatch(
+      actions.authentcationActions.startRegistering({
+        registerMode: 'student',
+        studentFirstname: firstname,
+      }),
+    );
+
+    try {
+      await authenticationService.registerStudent(
+        firstname,
+        lastname,
+        gender,
+        birthday,
+        phoneNumber,
+      );
+    } catch (err) {
+      return;
+    }
+
     navigation.navigate('OTPVerificationPage');
   }
 
   function formatBirthday() {
+    if (!birthday) {
+      return '';
+    }
+
     const month = birthday.getUTCMonth() + 1;
     const day = birthday.getUTCDate();
     const year = birthday.getUTCFullYear();

@@ -14,7 +14,8 @@ const Description = styled.View`
 `;
 
 export default function Requestor({
-  name,
+  firstName,
+  lastName,
   position,
   company,
   onAccept,
@@ -23,20 +24,22 @@ export default function Requestor({
   return (
     <Description>
       <Container>
-        <Title style={{maxWidth: '76%'}}>{name}</Title>
+        <Title style={{maxWidth: '76%'}}>
+          {firstName} {lastName}
+        </Title>
         <Icon
           name="checkmark-circle"
           color={'#2dcb70'}
           size={35}
           style={{marginLeft: 8}}
-          onPress={onAccept}
+          onPress={() => onAccept(firstName)}
         />
         <Icon
           name="close-circle"
           color={'#ff4141'}
           size={35}
           style={{marginLeft: 6}}
-          onPress={onReject}
+          onPress={() => onReject(firstName)}
         />
       </Container>
       <Paragraph>

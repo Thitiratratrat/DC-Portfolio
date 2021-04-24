@@ -1,5 +1,5 @@
-import React from 'react';
-import {Dialog, Button, TextInput} from 'react-native-paper';
+import React, {useState, useEffect} from 'react';
+import {Dialog, TextInput, Button} from 'react-native-paper';
 
 export default function EditDialog({
   visible,
@@ -7,22 +7,38 @@ export default function EditDialog({
   title,
   content,
   onChange,
-  isDropdown,
-  save,
 }) {
+  const [text, setText] = useState('');
+
+  useEffect(() => {
+    setText(content);
+  }, [content]);
+
   return (
     <Dialog
       visible={visible}
-      onDismiss={onDismiss}
-      contentContainerStyle={{backgroundColor: 'white'}}>
+      onDismiss={() => {
+        setText('');
+        onDismiss();
+      }}
+      contentContainerStyle={{backgroundColor: 'white'}}
+      key={content}>
       <Dialog.Title>Edit {title}</Dialog.Title>
       <Dialog.Content>
-        {!isDropdown && (
-          <TextInput multiline={true} value={content} onChangeText={onChange} />
-        )}
+        <TextInput
+          multiline={true}
+          value={text}
+          onChangeText={text => setText(text)}
+        />
       </Dialog.Content>
       <Dialog.Actions>
-        <Button onPress={save}>Save</Button>
+        <Button
+          onPress={() => {
+            onChange(text);
+            setText('');
+          }}>
+          Save
+        </Button>
       </Dialog.Actions>
     </Dialog>
   );

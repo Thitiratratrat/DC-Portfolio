@@ -2,14 +2,22 @@ import React, {useState} from 'react';
 import Container from '../../components/Container';
 import {TextInput, Button} from 'react-native-paper';
 import {useDispatch} from 'react-redux';
+import {authenticationService} from '../../lib/dependencies';
 import actions from '../../redux/actions';
 
 export default function LoginPage() {
   const [phoneNumber, setPhoneNumber] = useState('');
   const dispatch = useDispatch();
 
-  function login() {
-    dispatch(actions.authentcationActions.login());
+  async function login() {
+    const response = await authenticationService.login(phoneNumber);
+
+    if (!response) {
+      return;
+    }
+
+    dispatch(actions.userActions.setUserInfo(response.account));
+    dispatch(actions.authentcationActions.login(response.userType));
   }
 
   return (

@@ -9,13 +9,14 @@ const finishedRegistering = () => ({
   type: FINISH_REGISTERING,
 });
 
-const startRegistering = () => ({
+const startRegistering = authentication => ({
   type: START_REGISTERING,
+  payload: authentication,
 });
 
 const logout = () => ({type: LOGOUT});
 
-const login = () => ({type: LOGIN});
+const login = mode => ({type: LOGIN, payload: mode});
 
 export default {
   finishedRegistering,

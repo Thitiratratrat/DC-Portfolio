@@ -4,9 +4,9 @@ import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import RegisterHomePage from './RegisterHomePage';
 import StudentRegisterPage from './StudentRegisterPage';
-import InstituteRegisterPage from './InstituteRegiserPage';
+import InstituteRegisterPage from './InstituteRegisterPage';
 import EmployerRegisterPage from './EmployerRegisterPage';
-import OTPVerificationPage from './OTPVerificationpage';
+import OTPVerificationPage from './OTPVerificationPage';
 
 const AuthStack = createStackNavigator();
 

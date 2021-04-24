@@ -8,7 +8,11 @@ import {
 const initialState = {
   registerInProcess: false,
   isAuthenticated: false,
-  mode: 'student',
+  mode: 'employer',
+  studentFirstname: '',
+  instituteName: '',
+  employerName: '',
+  registerMode: '',
 };
 
 export default function (state = initialState, action) {
@@ -17,6 +21,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         registerInProcess: true,
+        ...action.payload,
       };
     }
 
@@ -31,6 +36,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         isAuthenticated: true,
+        mode: action.payload,
       };
     }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import {Title, Paragraph, Divider} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/AntDesign';
 import styled from '@emotion/native';
+import Files from '../../../components/Files';
 
 const Header = styled.View`
   flex-direction: row;
@@ -12,7 +13,7 @@ const Container = styled.View`
   margin-vertical: 20px;
 `;
 
-export default function Section({title, body, onEdit}) {
+export default function Section({title, body, onEdit, files}) {
   return (
     <>
       <Container>
@@ -28,7 +29,8 @@ export default function Section({title, body, onEdit}) {
             />
           )}
         </Header>
-        <Paragraph style={{marginTop: 10}}>{body}</Paragraph>
+        {!!body && <Paragraph style={{marginTop: 10}}>{body}</Paragraph>}
+        {!!files && <Files files={files} />}
       </Container>
       <Divider style={{height: 2}} />
     </>
